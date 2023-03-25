@@ -37,7 +37,7 @@ func NewConfig(envPath string) *Config {
 	return config
 }
 
-// Env get any type config from env (or .env)
+// Env gets any type config from env (or .env)
 func (config *Config) Env(envName string, defaultValue ...any) any {
 	value := config.Get(envName, defaultValue...)
 
@@ -52,12 +52,12 @@ func (config *Config) Env(envName string, defaultValue ...any) any {
 	return value
 }
 
-// Add configuration to application
+// Add adds configuration to application
 func (config *Config) Add(name string, configuration map[string]any) {
 	config.vip.Set(name, configuration)
 }
 
-// Get any type config from config
+// Get gets any type config from config
 func (config *Config) Get(path string, defaultValue ...any) any {
 	if !config.vip.IsSet(path) {
 		if len(defaultValue) > 0 {
@@ -70,7 +70,7 @@ func (config *Config) Get(path string, defaultValue ...any) any {
 	return config.vip.Get(path)
 }
 
-// GetString string type config from config
+// GetString gets string type config from config
 func (config *Config) GetString(path string, defaultValue ...any) string {
 	value := config.Get(path, defaultValue...)
 
@@ -85,7 +85,7 @@ func (config *Config) GetString(path string, defaultValue ...any) string {
 	return cast.ToString(value)
 }
 
-// GetInt get int type config from config
+// GetInt gets int type config from config
 func (config *Config) GetInt(path string, defaultValue ...any) int {
 	value := config.Get(path, defaultValue...)
 
@@ -100,7 +100,7 @@ func (config *Config) GetInt(path string, defaultValue ...any) int {
 	return cast.ToInt(value)
 }
 
-// GetBool get bool type config from config
+// GetBool gets bool type config from config
 func (config *Config) GetBool(path string, defaultValue ...any) bool {
 	value := config.Get(path, defaultValue...)
 
