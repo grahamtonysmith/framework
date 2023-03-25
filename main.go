@@ -10,6 +10,7 @@ import (
 
 func init() {
 	os.Setenv("FRAMEWORK_GREETING", "Hello, from envVar")
+
 	sp := &config.ServiceProvider{}
 	sp.Register()
 
@@ -19,9 +20,9 @@ func init() {
 }
 
 func main() {
-	greetingFromEnvVar := facades.Config.Env("FRAMEWORK_GREETING")
-	greetingFromDotEnv := facades.Config.Env("DOTENV_GREETING").(string)
-	greetingFromConfig := facades.Config.GetString("greeting.standard", "not found")
+	greetingFromEnvVar := facades.Config.Env("FRAMEWORK_GREETING", "Hello, from DEFAULT envVar")
+	greetingFromDotEnv := facades.Config.Env("DOTENV_GREETING", "Hello, from DEFAULT dotEnv").(string)
+	greetingFromConfig := facades.Config.GetString("greeting.standard", "Hello, from default config")
 
 	log.Println("greetingFromEnvVar:", greetingFromEnvVar)
 	log.Println("greetingFromDotEnv:", greetingFromDotEnv)
