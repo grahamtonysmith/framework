@@ -9,7 +9,7 @@ import (
 
 type ConfigTestSuite struct {
 	suite.Suite
-	config *Config
+	config *Application
 }
 
 func TestConfigTestSuite(t *testing.T) {
@@ -22,7 +22,7 @@ func TestConfigTestSuite(t *testing.T) {
 	defer os.Remove(".env")
 
 	suite.Run(t, &ConfigTestSuite{
-		config: NewConfig(".env"),
+		config: NewApplication(".env"),
 	})
 }
 

@@ -9,37 +9,37 @@ import (
 	"github.com/spf13/viper"
 )
 
-type Config struct {
+type Application struct {
 	vip *viper.Viper
 }
 
-func NewConfig(envPath string) *Config {
+func NewApplication(envPath string) *Application {
 	_, err := os.Stat(envPath)
 	if err != nil {
 		color.Redln("Please create .env and initialize it first.")
 		os.Exit(0)
 	}
 
-	config := &Config{}
-	config.vip = viper.New()
-	config.vip.SetConfigName(envPath)
-	config.vip.SetConfigType("env")
-	config.vip.AddConfigPath(".")
+	app := &Application{}
+	app.vip = viper.New()
+	app.vip.SetConfigName(envPath)
+	app.vip.SetConfigType("env")
+	app.vip.AddConfigPath(".")
 
-	err = config.vip.ReadInConfig()
+	err = app.vip.ReadInConfig()
 	if err != nil {
 		color.Redln(fmt.Sprintf("invalid config error: %e", err))
 	}
 
-	config.vip.SetConfigName("framework")
-	config.vip.AutomaticEnv()
+	app.vip.SetConfigName("framework")
+	app.vip.AutomaticEnv()
 
-	return config
+	return app
 }
 
 // Env gets any type config from env (or .env)
-func (config *Config) Env(envName string, defaultValue ...any) any {
-	value := config.Get(envName, defaultValue...)
+func (app *Application) Env(envName string, defaultValue ...any) any {
+	value := app.Get(envName, defaultValue...)
 
 	if cast.ToString(value) == "" {
 		if len(defaultValue) > 0 {
@@ -53,13 +53,13 @@ func (config *Config) Env(envName string, defaultValue ...any) any {
 }
 
 // Add adds configuration to application
-func (config *Config) Add(name string, configuration map[string]any) {
-	config.vip.Set(name, configuration)
+func (app *Application) Add(name string, configuration map[string]any) {
+	app.vip.Set(name, configuration)
 }
 
 // Get gets any type config from config
-func (config *Config) Get(path string, defaultValue ...any) any {
-	if !config.vip.IsSet(path) {
+func (app *Application) Get(path string, defaultValue ...any) any {
+	if !app.vip.IsSet(path) {
 		if len(defaultValue) > 0 {
 			return defaultValue[0]
 		}
@@ -67,12 +67,12 @@ func (config *Config) Get(path string, defaultValue ...any) any {
 		return nil
 	}
 
-	return config.vip.Get(path)
+	return app.vip.Get(path)
 }
 
 // GetString gets string type config from config
-func (config *Config) GetString(path string, defaultValue ...any) string {
-	value := config.Get(path, defaultValue...)
+func (app *Application) GetString(path string, defaultValue ...any) string {
+	value := app.Get(path, defaultValue...)
 
 	if cast.ToString(value) == "" {
 		if len(defaultValue) > 0 {
@@ -86,8 +86,8 @@ func (config *Config) GetString(path string, defaultValue ...any) string {
 }
 
 // GetInt gets int type config from config
-func (config *Config) GetInt(path string, defaultValue ...any) int {
-	value := config.Get(path, defaultValue...)
+func (app *Application) GetInt(path string, defaultValue ...any) int {
+	value := app.Get(path, defaultValue...)
 
 	if cast.ToString(value) == "" {
 		if len(defaultValue) > 0 {
@@ -101,8 +101,8 @@ func (config *Config) GetInt(path string, defaultValue ...any) int {
 }
 
 // GetBool gets bool type config from config
-func (config *Config) GetBool(path string, defaultValue ...any) bool {
-	value := config.Get(path, defaultValue...)
+func (app *Application) GetBool(path string, defaultValue ...any) bool {
+	value := app.Get(path, defaultValue...)
 
 	if cast.ToString(value) == "" {
 		if len(defaultValue) > 0 {

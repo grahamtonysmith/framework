@@ -1,21 +1,21 @@
 package config
 
 type Config interface {
-	// Env gets any type config from env (or .env)
+	// Returns config from env or dotenv file
 	Env(envName string, defaultValue ...any) any
 
-	// Add adds configuration to application
+	// Adds configuration to the application
 	Add(name string, configuration map[string]any)
 
-	// Get gets any type config from config
+	// Retuns config from the application
 	Get(path string, defaultValue ...any) any
 
-	// GetString gets string type config from config
+	// Returns config from the application
 	GetString(path string, defaultValue ...any) string
 
-	// GetInt gets int type config from config
+	// Returns config from the application
 	GetInt(path string, defaultValue ...any) int
 
-	// GetBool gets bool type config from config
+	// Returns config from the application
 	GetBool(path string, defaultValue ...any) bool
 }

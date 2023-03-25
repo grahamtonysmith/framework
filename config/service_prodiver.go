@@ -13,7 +13,7 @@ func (config *ServiceProvider) Register() {
 	env := flag.String("env", ".env", "custom .env path")
 	flag.Parse()
 
-	facades.Config = NewConfig(*env)
+	facades.Config = NewApplication(*env)
 }
 
 func (config *ServiceProvider) Boot() {

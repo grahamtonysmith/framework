@@ -1,9 +1,9 @@
 package contracts
 
 type ServiceProvider interface {
-	// Register any application services
+	// Registers an application service
 	Register()
 
-	// Boot any application services after register
+	// Boots an application service after register
 	Boot()
 }
