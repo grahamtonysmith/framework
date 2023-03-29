@@ -1,4 +1,4 @@
-package application
+package foundation
 
 import (
 	"github.com/grahamtonysmith/framework/config"

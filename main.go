@@ -4,15 +4,16 @@ import (
 	"log"
 	"os"
 
-	"github.com/grahamtonysmith/framework/config"
 	"github.com/grahamtonysmith/framework/facades"
+	"github.com/grahamtonysmith/framework/foundation"
 )
 
 func init() {
 	os.Setenv("FRAMEWORK_GREETING", "Hello, from envVar")
 
-	sp := &config.ServiceProvider{}
-	sp.Register()
+	_ = foundation.Application{}
+	// this will register and boot the base serviceProviders: [config]
+	// this will in turn instantiate a config application in facades.config
 
 	facades.Config.Add("greeting", map[string]any{
 		"standard": "Hello, from config",
